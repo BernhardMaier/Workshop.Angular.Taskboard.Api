@@ -19,7 +19,7 @@ Nach der Installation läuft die API lokal und benötigt keinen Zugriff auf ande
 
 ```bash
 # Herunterladen
-git clone https://github.com/ui-bootcamp/bootcamp-api.git
+git clone https://github.com/ng-practice/wuppertal-2018-09-17.git
 
 # In das API Verzeichnis wechseln
 cd bootcamp-api
