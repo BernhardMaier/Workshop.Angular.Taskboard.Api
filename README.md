@@ -35,6 +35,8 @@ npm start
 
 ### HTTP
 
+![Swagger](assets/images/swagger-logo.png)
+
 Die RESTful APIs _Taskboard_ und _Dashboard_ wurden mit
 [Swagger](https://swagger.io/) dokumentiert. Nach dem starten der API befindet
 sich unter http://localhost:3000/api/ eine interaktive Dokumentation.
