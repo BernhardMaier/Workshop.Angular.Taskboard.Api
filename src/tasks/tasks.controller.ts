@@ -55,6 +55,11 @@ export class TasksController {
     return this._tasks.disfavor(guid);
   }
 
+  @Put('reset/:guid')
+  reset(@Param('guid') guid: string) {
+    return this._tasks.reset(guid);
+  }
+
   @Put('complete/:guid')
   complete(@Param('guid') guid: string) {
     return this._tasks.complete(guid);

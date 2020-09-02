@@ -57,6 +57,14 @@ export class TasksService {
     this._taskDb.push(`/${task.guid}`, task);
   }
 
+  reset(guid: string) {
+    this._taskDb.push(
+      `/${guid}`,
+      { isComplete: false, isInProgress: false },
+      false
+    );
+  }
+
   complete(guid: string) {
     this._taskDb.push(
       `/${guid}`,
