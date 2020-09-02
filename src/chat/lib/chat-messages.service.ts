@@ -1,8 +1,7 @@
 import { Injectable } from '@nestjs/common';
-import JsonDB from 'node-json-db';
+import { JsonDB } from 'node-json-db';
 import { Observable, of } from 'rxjs';
 import { map, mapTo } from 'rxjs/operators';
-
 import { ChatMessage, PersistedChatMessage } from '../models';
 
 @Injectable()
@@ -11,7 +10,7 @@ export class ChatMessagesService {
 
   all(): Observable<ChatMessage[]> {
     return of(this._db.getData('/')).pipe(
-      map(persistedMessages => this.toMessageCollection(persistedMessages))
+      map((persistedMessages) => this.toMessageCollection(persistedMessages))
     );
   }
 
@@ -26,6 +25,6 @@ export class ChatMessagesService {
   }
 
   private toMessageCollection(persistedMessages: PersistedChatMessage) {
-    return Object.keys(persistedMessages).map(key => persistedMessages[key]);
+    return Object.keys(persistedMessages).map((key) => persistedMessages[key]);
   }
 }

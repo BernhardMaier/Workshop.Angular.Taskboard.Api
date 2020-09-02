@@ -1,11 +1,8 @@
 import { Module } from '@nestjs/common';
+import { JsonDB } from 'node-json-db';
 import { join } from 'path';
-
-import { ChatMessagesService } from './lib/chat-messages.service';
 import { ChatGateway } from './chat.gateway';
-
-// tslint:disable-next-line:no-var-requires
-const JsonDB = require('node-json-db');
+import { ChatMessagesService } from './lib/chat-messages.service';
 
 const database = join(__dirname, '..', '..', 'database');
 
@@ -16,8 +13,8 @@ const database = join(__dirname, '..', '..', 'database');
       provide: ChatMessagesService,
       useValue: new ChatMessagesService(
         new JsonDB(`${database}/chat-messages`, true, true)
-      )
-    }
-  ]
+      ),
+    },
+  ],
 })
 export class ChatModule {}

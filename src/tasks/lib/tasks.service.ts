@@ -2,12 +2,11 @@ import {
   BadRequestException,
   HttpException,
   Injectable,
-  NotFoundException
+  NotFoundException,
 } from '@nestjs/common';
-import JsonDB from 'node-json-db';
+import { JsonDB } from 'node-json-db';
 import { Either } from 'pure-ts/adts/Either';
 import { Maybe } from 'pure-ts/adts/Maybe';
-
 import { Task } from '../models/task';
 import { TasksJsonDB } from '../models/tasks-json-db';
 
@@ -40,16 +39,16 @@ export class TasksService {
 
   getAll(): Task[] {
     const tasks: TasksJsonDB = this._taskDb.getData('/');
-    return Object.keys(tasks).map(guid => tasks[guid]);
+    return Object.keys(tasks).map((guid) => tasks[guid]);
   }
 
   getSingle(guid: string): Either<HttpException, Task> {
     return Maybe.of(guid)
       .toEither(new MissingGuid())
-      .chain(value =>
+      .chain((value) =>
         tryTo<Task>({
           resolve: () => this._taskDb.getData(`/${value}`),
-          orYield: () => new NoTaskFound(guid)
+          orYield: () => new NoTaskFound(guid),
         })
       );
   }

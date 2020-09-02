@@ -7,10 +7,9 @@ import {
   Param,
   Post,
   Put,
-  UseGuards
+  UseGuards,
 } from '@nestjs/common';
-
-import { ApiUseTags } from '../../node_modules/@nestjs/swagger';
+import { ApiTags } from '@nestjs/swagger';
 import { GuidGuard } from './lib/guards/guid.guard';
 import { TasksService } from './lib/tasks.service';
 
@@ -18,7 +17,7 @@ function bailOut(err: HttpException) {
   throw err;
 }
 
-@ApiUseTags('tasks')
+@ApiTags('tasks')
 @Controller('tasks')
 export class TasksController {
   constructor(private _tasks: TasksService) {}
@@ -31,10 +30,7 @@ export class TasksController {
   @Get(':guid?')
   @UseGuards(GuidGuard)
   single(@Param('guid') guid: string) {
-    return this._tasks
-      .getSingle(guid)
-      .ifLeft(bailOut)
-      .extract();
+    return this._tasks.getSingle(guid).ifLeft(bailOut).extract();
   }
 
   @Post()
