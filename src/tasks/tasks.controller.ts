@@ -12,6 +12,7 @@ import {
 import { ApiTags } from '@nestjs/swagger';
 import { GuidGuard } from './lib/guards/guid.guard';
 import { TasksService } from './lib/tasks.service';
+import { Task } from './models/task';
 
 function bailOut(err: HttpException) {
   throw err;
@@ -34,7 +35,7 @@ export class TasksController {
   }
 
   @Post()
-  create(@Body() task) {
+  create(@Body() task: Task) {
     return this._tasks.addOne(task);
   }
 
