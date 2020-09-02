@@ -58,11 +58,19 @@ export class TasksService {
   }
 
   complete(guid: string) {
-    this._taskDb.push(`/${guid}`, { isComplete: true }, false);
+    this._taskDb.push(
+      `/${guid}`,
+      { isComplete: true, isInProgress: false },
+      false
+    );
   }
 
   proceed(guid: string) {
-    this._taskDb.push(`/${guid}`, { isComplete: false }, false);
+    this._taskDb.push(
+      `/${guid}`,
+      { isComplete: false, isInProgress: true },
+      false
+    );
   }
 
   favor(guid: string) {
