@@ -22,7 +22,7 @@ Nach der Installation läuft die API lokal und benötigt keinen Zugriff auf ande
 git clone https://github.com/ng-practice/kanban-api.git
 
 # In das API Verzeichnis wechseln
-cd bootcamp-api
+cd kanban-api
 
 # Abhängigkeiten installieren
 npm install
