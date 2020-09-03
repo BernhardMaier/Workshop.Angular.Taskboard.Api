@@ -2,6 +2,7 @@ import {
   BadRequestException,
   HttpException,
   Injectable,
+  NotAcceptableException,
   NotFoundException,
 } from '@nestjs/common';
 import { JsonDB } from 'node-json-db';
@@ -26,6 +27,12 @@ export class MissingGuid extends BadRequestException {
 export class NoTaskFound extends NotFoundException {
   constructor(givenGuid: string) {
     super(`Could not find task having the identifier "${givenGuid}".`);
+  }
+}
+
+export class NoTaskCreated extends NotAcceptableException {
+  constructor() {
+    super(`Could not create task. Did you specified a valid Guid?.`);
   }
 }
 
@@ -54,7 +61,14 @@ export class TasksService {
   }
 
   create(task: Task) {
-    this._taskDb.push(`/${task.guid}`, task);
+    return Maybe.of(task.guid)
+      .toEither(new MissingGuid())
+      .chain(() =>
+        tryTo({
+          resolve: () => this._taskDb.push(`/${task.guid}`, task),
+          orYield: () => new NoTaskCreated(),
+        })
+      );
   }
 
   reset(guid: string) {
